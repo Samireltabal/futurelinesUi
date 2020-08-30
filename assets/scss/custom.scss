@@ -1,0 +1,73 @@
+.v-main {
+ background: #ecf0f1;
+}
+.page {
+  background: #fff;
+  border-radius: 4px;
+}
+.project_customer {
+  list-style: none;
+  text-align: left;
+  font-weight: bold;
+  text-transform: capitalize;
+  span {
+    float: right;
+    font-weight: normal;
+  }
+}
+ul.projectList {
+  padding: 0px 0px 0px 0px;
+  list-style: none;
+}
+.signInGoogle {
+  span
+    {
+      text-transform: capitalize;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      color: rgba($color: #000000, $alpha: 0.54);
+      font-weight: medium;
+    }
+}
+.v-toolbar__content .v-btn.v-btn--icon.v-size--default, .v-toolbar__extension .v-btn.v-btn--icon.v-size--default {
+  width: 32px;
+  height: 32px;
+}
+.v-btn__content {
+  padding: 0px 0px;
+  .v-icon {
+    padding: 0px 0px;
+  }
+}
+.v-application {
+  * {
+    font-family: 'Roboto', sans-serif;
+  }
+  font-family: 'Roboto', sans-serif;
+  h1, h2, h3, h4, h5, h6, .headline, .subtitle-1, .subtitle-2, .body-1, .body-2, .button, .caption, .overline {
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0em;
+  }
+}
+.v-application--is-rtl {
+  * {
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 0em;
+  }
+  font-family: 'Cairo', sans-serif;
+  h1, h2, h3, h4, h5, h6, .headline, .subtitle-1, .subtitle-2, .body-1, .body-2, .button, .caption, .overline {
+    font-family: 'Cairo', sans-serif;
+    letter-spacing: 0em;
+  }
+  .signInGoogle {
+    span
+      {
+        text-transform: capitalize;
+        font-family: 'Cairo', sans-serif;
+        letter-spacing: 0em;
+        font-size: 14px;
+        color: rgba($color: #000000, $alpha: 0.54);
+        font-weight: medium;
+      }
+  }
+}

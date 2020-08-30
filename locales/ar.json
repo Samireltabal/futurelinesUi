@@ -1,0 +1,16 @@
+{
+  "hello" : "مرحباً",
+  "logintitle": "تسجيل دخول",
+  "Sign Up": "تسجيل حساب جديد",
+  "Email": "البريد الإلكتروني",
+  "Password": "كلمة المرور",
+  "Phone": "رقم الهاتف",
+  "Name": "الإسم",
+  "Reset": "حذف الكل",
+  "Password Confirmation": "تأكيد كلمة المرور",
+  "with": "بأستخدام",
+  "The given data was invalid.": "خطأ في البيانات",
+  "Remember Me": "تذكرنى",
+  "Create new account": "تسجيل حساب جديد",
+  "Already have account ?" : "لديك حساب مسجل بالفعل"
+}
