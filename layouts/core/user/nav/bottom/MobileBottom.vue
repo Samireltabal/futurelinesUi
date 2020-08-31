@@ -11,14 +11,16 @@
         {{ newNotificationsCount ? 'mdi-bell-ring' : 'mdi-bell-sleep' }}
       </v-icon>
     </v-btn>
-    <v-btn @click.prevent="$router.push('/account/profile')">
+    <v-btn v-if="loggedIn" @click.prevent="$router.push('/account/profile')">
       <v-icon>mdi-account</v-icon>
     </v-btn>
-
-    <v-btn @click.prevent="$router.push('/cart')">
-      <v-icon>mdi-cart</v-icon>
+    <v-btn @click.prevent="$router.push('/timetable')">
+      <v-icon>mdi-timetable</v-icon>
     </v-btn>
-    <v-btn @click.prevent="$auth.logout()">
+    <v-btn v-if="!loggedIn" @click.prevent="$router.push('/login')">
+      <v-icon>mdi-login</v-icon>
+    </v-btn>
+    <v-btn v-if="loggedIn" @click.prevent="$auth.logout()">
       <v-icon>mdi-logout</v-icon>
     </v-btn>
   </v-bottom-navigation>
@@ -31,6 +33,9 @@ export default {
     }
   },
   computed: {
+    loggedIn () {
+      return this.$store.state.auth.loggedIn
+    },
     newNotificationsCount () {
       if (this.$auth.loggedIn) {
         return this.$auth.user.UnreadNotificationsCount

@@ -16,6 +16,7 @@
           :to="item.to"
           router
           exact
+          :class="checkVisibility(item.visibleTo) ? '' : 'd-none'"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -49,15 +50,8 @@
             mdi-login
           </v-icon>
         </a>
-        <a
-          icon
-          href="#"
-          class="mx-1 px-0 text-caption grey--text text--darken-1 text-decoration-none text-black"
-          @click.prevent="changeLocale"
-        >
-          {{ $i18n.locale === 'ar' ? "ع" : "en" }}
-        </a>
         <v-menu
+          v-if="loggedIn"
           left
           bottom
           dense
@@ -223,6 +217,13 @@ export default {
       this.$auth.fetchUser()
       return this.$store.state.auth.loggedIn
     },
+    role () {
+      if (this.$store.state.auth.loggedIn) {
+        return this.$store.state.auth.user.role
+      } else {
+        return 'all'
+      }
+    },
     lang () {
       return this.$store.state.locale.locale
     },
@@ -270,6 +271,16 @@ export default {
             this.$auth.fetchUser()
           })
         }
+      }
+    },
+    checkVisibility (role) {
+      if (role === 'all') {
+        return true
+      }
+      if (process.client && this.role === role) {
+        return true
+      } else {
+        return false
       }
     },
     handleMqtt (value) {

@@ -8,6 +8,7 @@
     router
     :to="item.to"
     exact
+    :class="checkVisibility(item.visibleTo) ? '' : 'd-none'"
   >
     <v-list-item-action>
       <v-icon>{{ item.icon }}</v-icon>
@@ -90,6 +91,27 @@ export default {
     item: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    role () {
+      if (this.$store.state.auth.loggedIn) {
+        return this.$store.state.auth.user.role
+      } else {
+        return 'all'
+      }
+    }
+  },
+  methods: {
+    checkVisibility (role) {
+      if (role === 'all') {
+        return true
+      }
+      if (process.client && this.role === role) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }

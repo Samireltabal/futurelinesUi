@@ -1,6 +1,6 @@
 <template>
   <div class="col-lg-12  elevation-0">
-    <h3>{{ buttonText }}</h3>
+    <!-- <h3>{{ buttonText }}</h3> -->
     <div class="theme-card">
       <v-form @submit.prevent="callback(userInfo)">
         <v-container>
@@ -91,23 +91,7 @@
             >
               {{ $t('Reset') }}
             </v-btn>
-            <v-row class="my-0">
-              <v-col cols="12" lg="12" md="12" class="mb-0 mt-2 py-0">
-                <a
-                  class="btn btn-solid v-btn v-btn--block v-btn--contained theme--light v-size--default white text-dark mt-1 signInGoogle"
-                  :href="githubUrl"
-                >
-                  <v-icon color="dark" class="mx-2">mdi-github</v-icon>  <span>{{ buttonText }} {{ $t("with") }} Github</span>
-                </a>
-              </v-col>
-              <v-col cols="12" lg="12" md="12" class="mb-0 mt-2 py-0">
-                <a
-                  class="btn btn-solid v-btn v-btn--block v-btn--contained theme--light v-size--default white text-white mt-1 signInGoogle"
-                  :href="googleUrl"
-                >
-                  <img src="~/assets/images/google.png" class="img img-fluid mx-2" width="24px" alt="Sign in Using Google"> <span>{{ buttonText }} {{ $t("with") }} Google</span>
-                </a>
-              </v-col>
+            <v-row v-if="!isForm" class="my-0">
               <v-col>
                 <nuxt-link
                   class="text-decoration-none text-center"
@@ -135,6 +119,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isForm: {
+      type: Boolean,
+      default: false
+    },
     buttonText: {
       type: String,
       required: true
@@ -155,14 +143,6 @@ export default {
         password: '',
         password_confirmation: ''
       }
-    }
-  },
-  computed: {
-    githubUrl () {
-      return process.env.API_URL + 'auth/login/github'
-    },
-    googleUrl () {
-      return process.env.API_URL + 'auth/login/google'
     }
   },
   methods: {

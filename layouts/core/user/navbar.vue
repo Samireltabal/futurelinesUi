@@ -18,29 +18,27 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Home',
+          title: 'الرئيسية',
           to: '/',
+          visibleTo: 'all',
           type: 'link',
           hasChild: false
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          icon: 'mdi-account-plus',
+          title: 'التسجيل',
+          to: '/register',
+          visibleTo: 'all',
           type: 'link',
           hasChild: false
         },
         {
-          title: 'User Controls',
-          type: 'header',
-          hasChild: false
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Accounts',
-          to: '/inspire',
-          type: 'parent',
-          hasChild: true,
+          icon: 'mdi-school',
+          title: 'عن المدرسة',
+          to: '/about',
+          visibleTo: 'all',
+          type: 'link',
+          hasChild: false,
           children: [
             {
               icon: 'mdi-login',
@@ -62,31 +60,28 @@ export default {
                   to: '/register'
                 }
               ]
-            },
-            {
-              icon: 'mdi-account-plus',
-              title: 'Register',
-              type: 'link',
-              to: '/register'
             }
           ]
         },
         {
-          icon: 'mdi-lock',
-          title: 'Verified',
+          icon: 'mdi-email-plus',
+          title: 'إتصل بنا',
           type: 'link',
-          to: '/verified/'
+          visibleTo: 'all',
+          to: '/contact'
         },
         {
           icon: 'mdi-account',
           title: 'Admin',
           type: 'link',
+          visibleTo: 'admin',
           to: '/admin/'
         },
         {
           icon: 'mdi-account',
           title: 'Employee',
           type: 'link',
+          visibleTo: 'admin',
           to: '/employee/'
         }
       ]

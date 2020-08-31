@@ -5,7 +5,7 @@ export default {
   ** Nuxt rendering mode
   ** See https://nuxtjs.org/api/configuration-mode
   */
-  mode: 'universal',
+  mode: 'spa',
   /*
   ** Nuxt target
   ** See https://nuxtjs.org/api/configuration-target
@@ -133,7 +133,7 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: '#e74c3c',
-          success: colors.green.accent3
+          success: '#16a085'
         }
       }
     }
