@@ -73,7 +73,7 @@ export default {
   ],
   auth: {
     plugins: [{ src: '~/plugins/api', ssr: true }, { src: '~/plugins/github', ssr: false }],
-    watchLoggedIn: true,
+    watchLoggedIn: false,
     strategies: {
       local: {
         endpoints: {
@@ -125,6 +125,7 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     theme: {
       dark: false,
+      rtl: true,
       themes: {
         light: {
           primary: '#34495e',

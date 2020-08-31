@@ -57,6 +57,7 @@ export default {
       }).then((response) => {
         this.$api.setToken(response.data.access_token, 'Bearer')
         this.$auth.fetchUser()
+        this.$router.push('/')
       }).catch((error) => {
         this.error = {
           status: true,

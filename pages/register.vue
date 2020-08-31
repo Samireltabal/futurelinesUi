@@ -7,7 +7,7 @@
       <v-stepper v-model="e1" disabled>
         <v-overlay
           :absolute="true"
-          :value="true"
+          :value="false"
           :opacity="0.8"
         />
         <v-stepper-header>
@@ -18,12 +18,17 @@
           <v-divider />
 
           <v-stepper-step :complete="e1 > 2" step="2">
+            تفعيل البريد الالكتروني
+          </v-stepper-step>
+          <v-divider />
+
+          <v-stepper-step :complete="e1 > 3" step="3">
             تسجيل بيانات الطالب
           </v-stepper-step>
 
           <v-divider />
 
-          <v-stepper-step step="3">
+          <v-stepper-step step="4">
             تأكيد البيانات
           </v-stepper-step>
         </v-stepper-header>
@@ -70,39 +75,21 @@
           <v-stepper-content step="2">
             <v-card
               class="mb-12"
-              color="grey lighten-1"
-              height="200px"
+              width="400"
             />
-
-            <v-btn
-              color="primary"
-              @click="e1 = 3"
-            >
-              Continue
-            </v-btn>
-
-            <v-btn text>
-              Cancel
-            </v-btn>
+            <verification @verifySuccess="verificationDone" />
+            
           </v-stepper-content>
 
           <v-stepper-content step="3">
+            <studentForm @success="studentRegistered" />
+          </v-stepper-content>
+          <v-stepper-content step="4">
             <v-card
               class="mb-12"
               color="grey lighten-1"
               height="200px"
             />
-
-            <v-btn
-              color="primary"
-              @click="e1 = 1"
-            >
-              Continue
-            </v-btn>
-
-            <v-btn text>
-              Cancel
-            </v-btn>
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
@@ -111,6 +98,8 @@
 </template>
 <script>
 import authForm from '@/components/Auth/authForm'
+import verification from '@/components/Verification'
+import studentForm from '@/components/studentForm'
 export default {
   middleware ({ store, redirect }) {
     if (store.state.auth.loggedIn) {
@@ -119,7 +108,9 @@ export default {
   },
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    authForm
+    authForm,
+    verification,
+    studentForm
   },
   data () {
     return {
@@ -132,7 +123,7 @@ export default {
         data: ''
       },
       loading: false,
-      e1: 1
+      e1: 3
     }
   },
   computed: {
@@ -150,9 +141,14 @@ export default {
         }
         this.success = {
           status: true,
-          data: response.data.message
+          data: "تم التسجيل بنجاح ، برجاء متابعة الخطوات"
         }
         this.loading = false
+        this.$auth.setUserToken(response.data.access_token)
+        this.$api.setToken(response.data.access_token, 'Bearer')
+        this.$auth.fetchUser().then(() => {
+          this.e1 = 2
+        })
         setTimeout(() => {
           this.success = {
             status: false,
@@ -168,6 +164,12 @@ export default {
         }
         this.loading = false
       })
+    },
+    studentRegistered () {
+      alert('registered')
+    },
+    verificationDone () {
+      this.e1 = 3
     },
     clearData () {
       this.error = {
