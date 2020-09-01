@@ -1,9 +1,9 @@
 <template>
   <v-row align="center" justify="center">
     <v-col>
-      <v-alert type="success" transition="scroll-y-transition" prominent>
+      <!-- <v-alert type="success" transition="scroll-y-transition" prominent>
         التسجيل مغلق الأن .. سيتم فتح باب التسجيل قريباً
-      </v-alert>
+      </v-alert> -->
       <v-stepper v-model="e1" disabled>
         <v-overlay
           :absolute="true"
@@ -78,7 +78,6 @@
               width="400"
             />
             <verification @verifySuccess="verificationDone" />
-            
           </v-stepper-content>
 
           <v-stepper-content step="3">
@@ -86,10 +85,26 @@
           </v-stepper-content>
           <v-stepper-content step="4">
             <v-card
-              class="mb-12"
-              color="grey lighten-1"
-              height="200px"
-            />
+              class="mb-6"
+            >
+              <h3>نجاح التسجيل</h3>
+              <div>
+                <v-layout fluid>
+                  <v-row class="text-center">
+                    <v-col cols="12" sm="12">
+                      <img
+                        src="@/assets/images/logo.png"
+                        alt="Futurelines.net"
+                        class="mb-2"
+                      >
+                      <h4>تم التسجيل بنجاح</h4>
+                      <p>سيتم إعلامكم في حالة وجود تحديثات على الموقع او على الجدول عن طريق البريد الإلكتروني</p>
+                      <small>إدارة فيوتشر لاينز</small>
+                    </v-col>
+                  </v-row>
+                </v-layout>
+              </div>
+            </v-card>
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
@@ -107,7 +122,6 @@ export default {
     }
   },
   components: {
-    // eslint-disable-next-line vue/no-unused-components
     authForm,
     verification,
     studentForm
@@ -123,7 +137,8 @@ export default {
         data: ''
       },
       loading: false,
-      e1: 3
+      e1: 1,
+      student: {}
     }
   },
   computed: {
@@ -141,7 +156,7 @@ export default {
         }
         this.success = {
           status: true,
-          data: "تم التسجيل بنجاح ، برجاء متابعة الخطوات"
+          data: 'تم التسجيل بنجاح ، برجاء متابعة الخطوات'
         }
         this.loading = false
         this.$auth.setUserToken(response.data.access_token)
@@ -165,8 +180,9 @@ export default {
         this.loading = false
       })
     },
-    studentRegistered () {
-      alert('registered')
+    studentRegistered (object) {
+      this.e1 = this.e1 + 1
+      this.student = object
     },
     verificationDone () {
       this.e1 = 3

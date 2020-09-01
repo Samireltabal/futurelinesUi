@@ -265,10 +265,8 @@ export default {
       })
     },
     submit () {
-      this.$api.post('projects/new', this.data).then((response) => {
-        console.log(response)
-      }).catch((error) => {
-        console.log(error)
+      this.$api.post('projects/new', this.data).then(() => {
+      }).catch(() => {
       })
     },
     validate () {

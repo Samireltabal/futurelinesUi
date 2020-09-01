@@ -16,7 +16,7 @@
           class="mb-5"
         >
         <p>
-            برجاء مراجعة بريدك الإلكتروني لكود التفعيل
+          برجاء مراجعة بريدك الإلكتروني لكود التفعيل
         </p>
       </v-col>
       <v-col cols="12" sm="12">
@@ -86,7 +86,7 @@
       <v-col cols="12" sm="12">
         <v-flex>
           <v-btn class="mt-5" size="lg" :disabled="cannotRequest" type="primary" @click="requestResend">
-              ارسال الكود مره اخرى
+            ارسال الكود مره اخرى
           </v-btn>
         </v-flex>
         <v-overlay :value="isLoading">
@@ -119,7 +119,7 @@ export default {
 
   },
   mounted () {
-    
+
   },
   methods: {
     submitOtp () {
