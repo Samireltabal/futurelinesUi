@@ -1,6 +1,6 @@
 <template>
   <v-row align="center" justify="center">
-    <v-col>
+    <v-col v-if="! $auth.user.student">
       <!-- <v-alert type="success" transition="scroll-y-transition" prominent>
         التسجيل مغلق الأن .. سيتم فتح باب التسجيل قريباً
       </v-alert> -->
@@ -51,6 +51,18 @@
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
+    </v-col>
+    <v-col v-else>
+      <v-card>
+        <v-card-title>
+          لديك طالب مسجل على هذا الحساب  
+        </v-card-title>
+        <v-card-text>
+          <p>
+            حساب الطالب بأسم {{ $auth.user.student.student_name }}  
+          </p>
+        </v-card-text>
+      </v-card>
     </v-col>
   </v-row>
 </template>

@@ -100,6 +100,14 @@
                 >
                   {{ hasName ? $t('Already have account ?') : $t('Create new account') }}
                 </nuxt-link>
+                <nuxt-link
+                  v-if="!hasName"
+                  class="text-decoration-none text-center mx-4"
+                  color="primary"
+                  to="/restore"
+                >
+                  إستعادة كلمة المرور
+                </nuxt-link>
               </v-col>
             </v-row>
           </v-row>

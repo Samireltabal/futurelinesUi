@@ -59,7 +59,7 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-      <v-card v-if="$auth.user.verified && !$auth.user.student" width="680" class="mt-2">
+      <v-card v-if="$auth.loggedIn && $auth.user.verified && !$auth.user.student && $auth.user.role != 'admin'" width="680" class="mt-2">
         <v-card-title>
           <h2>
             حسابك مفعل
