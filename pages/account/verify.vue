@@ -1,105 +1,16 @@
 <template>
   <v-layout fluid>
-    <v-row class="text-center">
-      <v-col cols="12" sm="12">
-        <v-alert v-if="error.status" type="error" prominent>
-          <h3>{{ error.message }}</h3>
-        </v-alert>
-      </v-col>
-      <v-col cols="12" sm="12">
-        <v-alert v-if="success.status" type="success" transition="scroll-y-transition" prominent>
-          {{ success.data }}
-        </v-alert>
-        <img
-          src="/v.png"
-          alt="Vuetify.js"
-          class="mb-5"
-        >
-        <p>
-          Please Check your inbox for your code
-        </p>
-      </v-col>
-      <v-col cols="12" sm="12">
-        <v-row justify="center" align="center">
-          <v-col cols="12" sm="12">
-            <form>
-              <input
-                ref="digit1"
-                v-model="code[0]"
-                type="text"
-                maxlength="1"
-                class="otp-input"
-                autofocus
-                :disabled="isLoading"
-                onFocus="this.select()"
-                @keyup="$event.target.nextElementSibling.focus()"
-              >
-              <input
-                v-model="code[1]"
-                type="text"
-                maxlength="1"
-                class="otp-input"
-                :disabled="isLoading"
-                onFocus="this.select()"
-                @keyup="$event.target.nextElementSibling.focus()"
-              >
-              <input
-                v-model="code[2]"
-                type="text"
-                maxlength="1"
-                class="otp-input"
-                :disabled="isLoading"
-                onFocus="this.select()"
-                @keyup="$event.target.nextElementSibling.focus()"
-              >
-              <input
-                v-model="code[3]"
-                type="text"
-                maxlength="1"
-                class="otp-input"
-                :disabled="isLoading"
-                onFocus="this.select()"
-                @keyup="$event.target.nextElementSibling.focus()"
-              >
-              <input
-                v-model="code[4]"
-                type="text"
-                maxlength="1"
-                class="otp-input"
-                :disabled="isLoading"
-                onFocus="this.select()"
-                @keyup="$event.target.nextElementSibling.focus()"
-              >
-              <input
-                v-model="code[5]"
-                type="text"
-                maxlength="1"
-                class="otp-input"
-                :disabled="isLoading"
-                onFocus="this.select()"
-                @keyup="submitOtp"
-              >
-            </form>
-          </v-col>
-        </v-row>
-      </v-col>
-      <v-col cols="12" sm="12">
-        <v-flex>
-          <v-btn class="mt-5" size="lg" :disabled="cannotRequest" type="primary" @click="requestResend">
-            request verification again
-          </v-btn>
-        </v-flex>
-        <v-overlay :value="isLoading">
-          <v-progress-circular indeterminate size="64" />
-        </v-overlay>
-      </v-col>
-    </v-row>
+    <verification @verifySuccess="verificationDone" />
   </v-layout>
 </template>
 <script>
+import verification from '@/components/Verification'
 export default {
   middleware: ['auth', 'notVerified'],
   ssr: false,
+  components: {
+    verification
+  },
   data () {
     return {
       code: ['', '', '', '', '', ''],
@@ -118,10 +29,10 @@ export default {
   computed: {
 
   },
-  mounted () {
-    this.$vuetify.rtl = false
-  },
   methods: {
+    verificationDone () {
+      this.$router.push('/')
+    },
     submitOtp () {
       this.isLoading = true
       this.$api.post('/auth/verify', { otp: this.code }).then(() => {

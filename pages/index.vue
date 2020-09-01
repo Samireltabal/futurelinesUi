@@ -37,6 +37,50 @@
           </v-btn>
         </v-card-actions>
       </v-card>
+      <v-card v-if="$auth.loggedIn && !$auth.user.verified" width="680" class="mt-2">
+        <v-card-title>
+          <h2>
+            حسابك غير مفعل
+          </h2>
+        </v-card-title>
+        <v-card-text>
+          <h4>برجاء تفعيل الحساب حتى تتمكن من تسجيل الطالب</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="success"
+            nuxt
+            block
+            large
+            to="/account/verify"
+          >
+            تفعيل الحساب
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+      <v-card v-if="$auth.user.verified && !$auth.user.student" width="680" class="mt-2">
+        <v-card-title>
+          <h2>
+            حسابك مفعل
+          </h2>
+        </v-card-title>
+        <v-card-text>
+          <h4>برجاء تسجيل بيانات الطالب</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="success"
+            nuxt
+            block
+            large
+            to="/account/student"
+          >
+            تسجيل الطالب
+          </v-btn>
+        </v-card-actions>
+      </v-card>
     </v-flex>
   </v-layout>
 </template>

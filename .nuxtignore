@@ -1,4 +1,3 @@
-pages/account/*.vue
 pages/admin/*.vue
 pages/verified/*.vue
 pages/employee/*.vue

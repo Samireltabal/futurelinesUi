@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex class="text-center">
       <img
-        src="/v.png"
+        src="@/assets/images/logo.png"
         alt="Vuetify.js"
         class="mb-5"
       >
@@ -12,7 +12,7 @@
         </blockquote>
       </client-only>
       <nuxt-link to="/account/verify">
-        Verify Now
+        تفعيل الحساب
       </nuxt-link>
     </v-flex>
   </v-layout>
