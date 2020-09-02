@@ -124,14 +124,14 @@
                 label="رقم واتساب ولي الآمر"
                 required
               />
-              <v-file-input
+              <!-- <v-file-input
                 v-model="file"
                 :rules="rules"
                 accept="image/png, image/jpeg, image/bmp"
                 placeholder="صورة الطالب"
                 prepend-icon="mdi-camera"
                 label="صورة الطالب"
-              />
+              /> -->
               <v-btn
                 :disabled="!valid"
                 color="success"
@@ -262,7 +262,7 @@ export default {
     submitForm () {
       // eslint-disable-next-line prefer-const
       let formbody = new FormData()
-      formbody.append('image', this.file)
+      // formbody.append('image', this.file)
       formbody.append('student_name', this.formdata.student_name)
       formbody.append('gender', this.formdata.gender)
       formbody.append('phone_number', this.formdata.phone_number)
@@ -281,8 +281,12 @@ export default {
         }
       }).then((response) => {
         this.$emit('success', response.data)
-      }).catch(() => {
-        this.validate()
+      }).catch((error) => {
+        window.Swal.fire(
+              'فشل العمليه',
+              'برجاء مراجعة البيانات',
+              'error'
+            )
       })
     },
     getGrades () {
