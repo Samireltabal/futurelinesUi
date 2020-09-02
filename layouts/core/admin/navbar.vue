@@ -178,12 +178,12 @@ export default {
   data () {
     return {
       clipped: false,
-      drawer: false,
+      drawer: true,
       fixed: false,
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Admin Home',
+          title: 'لوحة التحكم',
           to: '/admin/',
           type: 'link',
           hasChild: false
@@ -201,25 +201,50 @@ export default {
           hasChild: false
         },
         {
-          title: 'Projects',
+          title: 'الحسابات',
           type: 'header',
           hasChild: false
         },
         {
-          icon: 'mdi-tag-multiple',
-          title: 'Porjects',
+          icon: 'mdi-account-group',
+          title: 'الحسابات',
           type: 'parent',
           hasChild: true,
           children: [
             {
               icon: 'mdi-plus',
-              title: 'New Project',
+              title: 'حساب جديد',
+              type: 'link',
+              to: '/admin/accounts'
+            },
+            {
+              icon: 'mdi-database',
+              title: 'كل الحسابات',
+              type: 'link',
+              to: '/admin/accounts'
+            }
+          ]
+        },
+        {
+          title: 'المواد',
+          type: 'header',
+          hasChild: false
+        },
+        {
+          icon: 'mdi-account-group',
+          title: 'المواد',
+          type: 'parent',
+          hasChild: true,
+          children: [
+            {
+              icon: 'mdi-plus',
+              title: 'اضافة مادة',
               type: 'link',
               to: '/admin/projects/new'
             },
             {
               icon: 'mdi-database',
-              title: 'All Projects',
+              title: 'كل المواد',
               type: 'link',
               to: '/admin/projects/'
             }

@@ -1,6 +1,4 @@
-pages/admin/*.vue
 pages/verified/*.vue
 pages/employee/*.vue
-pages/admin/*
 pages/register copy.vue
 pages/inspire.vue

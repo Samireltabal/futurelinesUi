@@ -28,7 +28,7 @@ export default {
           icon: 'mdi-account-plus',
           title: 'التسجيل',
           to: '/register',
-          visibleTo: 'all',
+          visibleTo: 'guest',
           type: 'link',
           hasChild: false
         },

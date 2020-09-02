@@ -12,7 +12,41 @@
       <div class="text-center">
         <img src="@/assets/images/logo.png">
       </div>
-      <v-card width="680">
+      <v-card v-if="!completed && loggedIn" width="680" class="mt-4">
+        <v-card-title>
+          <h2>
+            لا يوجد ملف طالب مربوط بالحساب
+          </h2>
+        </v-card-title>
+        <v-card-text>
+          <h4>برجاء تسجيل بيانات الطالب</h4>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="success"
+            nuxt
+            block
+            :disabled="completed"
+            large
+            to="/account/student"
+          >
+            تسجيل الطالب
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+      <v-card v-if="$auth.loggedIn && $auth.user.verified && $auth.user.student.length" class="mt-4">
+        <v-card-text>
+          <h4>لقد اكملت كل الخطوات بنجاح</h4>
+          <p>
+            الطالب <span class="red--text text-decoration-underline">{{ $auth.user.student[0].student_name }}</span> في الصف <span class="red--text text-decoration-underline">{{ $auth.user.student[0].grade.grade_name }}</span> في مسار <span class="red--text text-decoration-underline">{{ $auth.user.student[0].path.path_name }}</span> مسجل لدينا بالفعل
+          </p>
+          <p>
+            سيتم إعلامك عن طريق البريد الإلكتروني عند وجود تحديثات في الموقع
+          </p>
+        </v-card-text>
+      </v-card>
+      <v-card v-if="!loggedIn" width="680" class="mt-4">
         <v-card-title>
           <h2>
             مدرسة فيوتشر لاينز
@@ -37,7 +71,7 @@
           </v-btn>
         </v-card-actions>
       </v-card>
-      <v-card v-if="$auth.loggedIn && !$auth.user.verified" width="680" class="mt-2">
+      <v-card v-if="$auth.loggedIn && !$auth.user.verified" width="680" class="mt-4">
         <v-card-title>
           <h2>
             حسابك غير مفعل
@@ -56,28 +90,6 @@
             to="/account/verify"
           >
             تفعيل الحساب
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-      <v-card v-if="$auth.loggedIn && $auth.user.verified && !$auth.user.student && $auth.user.role != 'admin'" width="680" class="mt-2">
-        <v-card-title>
-          <h2>
-            حسابك مفعل
-          </h2>
-        </v-card-title>
-        <v-card-text>
-          <h4>برجاء تسجيل بيانات الطالب</h4>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="success"
-            nuxt
-            block
-            large
-            to="/account/student"
-          >
-            تسجيل الطالب
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -104,20 +116,19 @@ export default {
   computed: {
     api () {
       return process.env.API_BASE
+    },
+    loggedIn () {
+      return this.$auth.loggedIn
+    },
+    completed () {
+      if (this.$auth.loggedIn && this.$auth.user.student.length) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   methods: {
-    changeLocale () {
-      if (this.$vuetify.rtl) {
-        this.$vuetify.rtl = false
-        this.$i18n.locale === 'en' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'en'
-        this.$store.dispatch('locale/set_locale', 'en')
-      } else {
-        this.$vuetify.rtl = true
-        this.$i18n.locale === 'ar' ? this.$i18n.locale = 'ar' : this.$i18n.locale = 'ar'
-        this.$store.dispatch('locale/set_locale', 'ar')
-      }
-    },
     ping () {
       this.$api.get('ping').then((response) => {
         this.data = response.data

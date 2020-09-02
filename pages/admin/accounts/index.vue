@@ -18,7 +18,7 @@
           class="elevation-1"
         >
           <template v-slot:item.verified="{ item }">
-            <v-chip :color="item.verified ? 'green' : 'red'" dark>
+            <v-chip :color="item.verified ? 'green' : 'red'" small dark>
               {{ item.verified ? 'YES' : 'NO' }}
             </v-chip>
           </template>
@@ -27,6 +27,7 @@
               v-for="(role, index) in item.roles"
               :key="index"
               close
+              small
               color="teal"
               text-color="white"
               @click:close="revoke(item.id, role.name)"
@@ -34,13 +35,35 @@
               {{ role.name }}
             </v-chip>
           </template>
-          <template v-slot:item.provider="{ item }">
-            <v-chip v-for="( provider, index ) in item.social" :key="index" outlined>
-              <v-icon>{{ handleServiceLogo(provider.service) }}</v-icon>
-            </v-chip>
-            <v-chip v-if="! item.social.length" outlined>
-              <v-icon>{{ handleServiceLogo('database') }}</v-icon>
-            </v-chip>
+          <template v-slot:item.student="{ item }">
+            <span v-for="(value, key) in item.student" :key="key">
+              <v-avatar
+                size="42px"
+              >
+                <img :src="value.photo" :alt="value.student_name">
+              </v-avatar> <small v-if="value != null">
+                {{ value.id }} - {{ value.student_name }} - {{ value.grade.grade_name }} - {{ value.path.path_name }} </small>
+              <v-btn
+                v-if="item.student.length > 1"
+                fab
+                small
+                icon
+                color="teal"
+                @click="deleteStudent(value.id)"
+              >
+                <v-icon>mdi-delete</v-icon>
+              </v-btn><br>
+            </span>
+          </template>
+          <template v-slot:item.nationality="{ item }">
+            <span v-for="(value, key) in item.student" :key="key">
+              <small v-if="value != null">{{ value.nationality }}</small><br>
+            </span>
+          </template>
+          <template v-slot:item.phone="{ item }">
+            <span v-for="(value, key) in item.student" :key="key">
+              <small v-if="value != null">{{ value.phone_number }}</small><br>
+            </span>
           </template>
           <template v-slot:item.options="{ item }">
             <v-btn
@@ -49,6 +72,7 @@
               color="teal"
               small
               icon
+              disabled
               fab
               @click="handle(item)"
             >
@@ -59,33 +83,12 @@
               outlined
               :color="item.verified ? 'teal' : 'error'"
               small
+              :disabled="item.verified"
               icon
               fab
-              @click="handle(item)"
+              @click="verifyMail(item.id)"
             >
-              <v-icon>{{ item.verified ? 'mdi-pause-circle' : 'mdi-play-circle' }}</v-icon>
-            </v-btn>
-            <v-btn
-              class="ma-0"
-              outlined
-              color="teal"
-              small
-              icon
-              fab
-              @click="poke(item.id)"
-            >
-              <v-icon>mdi-thumb-up</v-icon>
-            </v-btn>
-            <v-btn
-              class="ma-0"
-              outlined
-              color="error"
-              small
-              icon
-              fab
-              @click="unpoke(item.id)"
-            >
-              <v-icon>mdi-thumb-down</v-icon>
+              <v-icon>mdi-email-check</v-icon>
             </v-btn>
             <v-menu
               offset-y
@@ -142,14 +145,15 @@ export default {
         sortable: true,
         value: 'id'
       },
-      { text: 'Name', value: 'name' },
-      { text: 'Email', value: 'email' },
-      { text: 'Member Since', value: 'registered' },
-      { text: 'Verified', value: 'verified' },
+      { text: 'الاسم', value: 'name' },
+      { text: 'البريد الإلكتروني', value: 'email' },
       { text: 'Role', value: 'role' },
-      { text: 'Pokes', value: 'Pokes' },
-      { text: 'Provider', value: 'provider' },
-      { text: 'Options', value: 'options' }
+      { text: 'إسم الطالب', value: 'student' },
+      { text: 'الجنسية', value: 'nationality' },
+      { text: 'رقم التليفون', value: 'phone' },
+      { text: 'Options', value: 'options' },
+      { text: 'مسجل منذ', value: 'registered' },
+      { text: 'مفعل', value: 'verified' }
     ],
     desserts: [
       {
@@ -169,9 +173,44 @@ export default {
   },
   methods: {
     listUser () {
-      this.$api.get('pokes/users').then((response) => {
+      this.$api.get('admin/users').then((response) => {
         this.accounts = response.data
         this.loading = false
+      })
+    },
+    verifyMail (userId) {
+      this.$api.post('/admin/user/verify', { userId }).then(() => {
+        this.$toast.success('تم تفعيل البريد الإلكتروني')
+        this.listUser()
+      })
+    },
+    deleteStudent (studentId) {
+      window.Swal.fire({
+        title: 'هل انت متأكد',
+        text: 'لا يمكن إسترجاع بيانات الطالب بعد حذفها',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'إحذف',
+        cancelButtonText: 'إلغاء'
+      }).then((result) => {
+        if (result.value) {
+          this.$api.post('/admin/student/delete', { studentId }).then((response) => {
+            window.Swal.fire(
+              'نجاح العمليه',
+              'تم الحذف بنجاح',
+              'success'
+            )
+            this.listUser()
+          }).catch(() => {
+            window.Swal.fire(
+              'فشل العمليه',
+              'خطأ اثناء الحذف',
+              'error'
+            )
+          })
+        }
       })
     },
     poke (id) {

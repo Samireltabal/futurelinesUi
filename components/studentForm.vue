@@ -149,6 +149,23 @@
                 حذف الجميع
               </v-btn>
             </form>
+            <v-col v-if="stepper" class="mt-2">
+              <v-btn
+                color="grey lighten-3"
+                class="mr-4"
+                @click="refreshData"
+              >
+                تحديث البيانات
+              </v-btn>
+
+              <v-btn
+                color="grey lighten-3"
+                class="mr-4"
+                @click="$router.push('/')"
+              >
+                تخطي التسجيل
+              </v-btn>
+            </v-col>
           </v-col>
         </v-row>
       </v-col>
@@ -157,6 +174,12 @@
 </template>
 <script>
 export default {
+  props: {
+    stepper: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => ({
     valid: true,
     name: '',
@@ -232,6 +255,10 @@ export default {
     this.getPathes()
   },
   methods: {
+    refreshData () {
+      this.getGrades()
+      this.getPathes()
+    },
     submitForm () {
       // eslint-disable-next-line prefer-const
       let formbody = new FormData()

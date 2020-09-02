@@ -140,7 +140,8 @@
               <v-avatar
                 size="32px"
               >
-                <img :src="$auth.user.profile_picture" alt="Profile Picture">
+                <img v-if="! $auth.user.student " :src="$auth.user.profile_picture" alt="Profile Picture">
+                <img v-else :src="$auth.user.student.photo" alt="Profile Picture">
               </v-avatar>
             </v-btn>
           </template>
@@ -221,7 +222,7 @@ export default {
       if (this.$store.state.auth.loggedIn) {
         return this.$store.state.auth.user.role
       } else {
-        return 'all'
+        return 'guest'
       }
     },
     lang () {
@@ -275,6 +276,9 @@ export default {
     },
     checkVisibility (role) {
       if (role === 'all') {
+        return true
+      }
+      if (role === 'guest' && !this.$auth.loggedIn) {
         return true
       }
       if (process.client && this.role === role) {

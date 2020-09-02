@@ -17,6 +17,7 @@
         >
         <p>
           برجاء مراجعة بريدك الإلكتروني لكود التفعيل
+          <small> برجاء مراجعة الرسائل المهمله ( spam - junk mail) </small>
         </p>
       </v-col>
       <v-col cols="12" sm="12">
@@ -88,6 +89,16 @@
           <v-btn class="mt-5" size="lg" :disabled="cannotRequest" type="primary" @click="requestResend">
             ارسال الكود مره اخرى
           </v-btn>
+          <v-btn
+            v-if="stepper"
+            class="mt-5 mx-2"
+            size="lg"
+            :disabled="cannotRequest"
+            type="primary"
+            @click="$emit('verifySuccess')"
+          >
+            التفعيل لاحقاً
+          </v-btn>
         </v-flex>
         <v-overlay :value="isLoading">
           <v-progress-circular indeterminate size="64" />
@@ -100,6 +111,12 @@
 export default {
   middleware: ['auth', 'notVerified'],
   ssr: false,
+  props: {
+    stepper: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       code: ['', '', '', '', '', ''],

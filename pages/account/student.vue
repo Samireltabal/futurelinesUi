@@ -1,6 +1,6 @@
 <template>
   <v-row align="center" justify="center">
-    <v-col v-if="! $auth.user.student">
+    <v-col v-if="! $auth.user.student.length">
       <!-- <v-alert type="success" transition="scroll-y-transition" prominent>
         التسجيل مغلق الأن .. سيتم فتح باب التسجيل قريباً
       </v-alert> -->
@@ -55,11 +55,11 @@
     <v-col v-else>
       <v-card>
         <v-card-title>
-          لديك طالب مسجل على هذا الحساب  
+          لديك طالب مسجل على هذا الحساب
         </v-card-title>
         <v-card-text>
           <p>
-            حساب الطالب بأسم {{ $auth.user.student.student_name }}  
+            حساب الطالب بأسم {{ $auth.user.student.student_name }}
           </p>
         </v-card-text>
       </v-card>

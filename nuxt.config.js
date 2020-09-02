@@ -43,6 +43,7 @@ export default {
   */
   plugins: [
     { src: '~/plugins/i18n.js' },
+    { src: '~/plugins/swal.js' },
     { src: '~plugins/ws.js', mode: 'client' },
     { src: '~/plugins/localStorage.js', mode: 'client' }
   ],
@@ -69,6 +70,7 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    'vue-sweetalert2/nuxt',
     '@nuxtjs/pwa'
   ],
   auth: {

@@ -77,11 +77,11 @@
               class="mb-12"
               width="400"
             />
-            <verification @verifySuccess="verificationDone" />
+            <verification :stepper="true" @verifySuccess="verificationDone" />
           </v-stepper-content>
 
           <v-stepper-content step="3">
-            <studentForm @success="studentRegistered" />
+            <studentForm :stepper="true" @success="studentRegistered" />
           </v-stepper-content>
           <v-stepper-content step="4">
             <v-card

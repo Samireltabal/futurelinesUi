@@ -10,7 +10,14 @@
   >
     <v-app-bar-nav-icon @click.stop="$emit('drawerClicked')" />
     <v-spacer />
-    <img src="@/assets/images/logo.png" :alt="appName" class="mt-3 ml-2" style="max-height:40px; width:auto;">
+    <v-avatar
+      v-if="$auth.loggedIn && $auth.user.student"
+      size="32px"
+    >
+      <img v-if="! $auth.user.student " :src="$auth.user.profile_picture" alt="Profile Picture">
+      <img v-else :src="$auth.user.student.photo" alt="Profile Picture">
+    </v-avatar>
+    <img v-else src="@/assets/images/logo.png" :alt="appName" class="mt-3 ml-2" style="max-height:40px; width:auto;">
   </v-app-bar>
 </template>
 <script>
