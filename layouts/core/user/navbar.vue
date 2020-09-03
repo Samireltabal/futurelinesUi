@@ -25,6 +25,14 @@ export default {
           hasChild: false
         },
         {
+          icon: 'mdi-youtube-tv',
+          title: 'المعرض',
+          to: '/media',
+          visibleTo: 'all',
+          type: 'link',
+          hasChild: false
+        },
+        {
           icon: 'mdi-account-plus',
           title: 'التسجيل',
           to: '/register',

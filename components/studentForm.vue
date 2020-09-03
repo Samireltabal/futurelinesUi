@@ -281,12 +281,12 @@ export default {
         }
       }).then((response) => {
         this.$emit('success', response.data)
-      }).catch((error) => {
+      }).catch(() => {
         window.Swal.fire(
-              'فشل العمليه',
-              'برجاء مراجعة البيانات',
-              'error'
-            )
+          'فشل العمليه',
+          'برجاء مراجعة البيانات',
+          'error'
+        )
       })
     },
     getGrades () {
