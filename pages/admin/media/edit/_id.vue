@@ -6,36 +6,27 @@
     <v-row>
       <v-col cols="12" lg="12">
         <h2 class="grey--text text--darken-2 ma-4">
-          المعرض
+          {{ data.title }}
         </h2>
       </v-col>
       <v-col>
         <v-row>
           <v-col
-            v-for="video in data"
-            :key="video.id"
             cols="12"
-            lg="3"
-            md="4"
+            lg="12"
+            md="12"
             sm="12"
           >
             <v-card>
-              <v-img
-                :src="video.thumbnail"
-                height="200px"
-                contain
+              <videoPlayer
+                :options="playerOptions"
               />
               <v-card-title>
-                {{ video.title }}
+                {{ data.title }}
               </v-card-title>
               <v-card-subtitle>
-                {{ video.content }}
+                {{ data.content }}
               </v-card-subtitle>
-              <v-card-actions>
-                <v-btn text @click="jumpToVideo(video.id)">
-                  مشاهدة <v-icon>mdi-play</v-icon>
-                </v-btn>
-              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
@@ -45,11 +36,17 @@
 </template>
 
 <script>
+import 'video.js/dist/video-js.css'
 
+import { videoPlayer } from 'vue-video-player'
 export default {
   name: 'Home',
-  asyncData ({ $api }) {
-    return $api.$get('media/list').then((response) => {
+  components: {
+    videoPlayer
+  },
+  layout: 'admin',
+  asyncData ({ $api, params }) {
+    return $api.$get('media/show/' + params.id).then((response) => {
       return { data: response }
     }).catch(() => {
       return { data: 'network error' }
@@ -64,6 +61,22 @@ export default {
     api () {
       return process.env.API_BASE
     },
+    playerOptions () {
+      return {
+        autoplay: true,
+        muted: false,
+        language: 'ar',
+        playbackRates: [0.7, 1.0, 1.5, 2.0],
+        sources: [{
+          type: 'video/mp4',
+          // mp4
+          src: this.data.url
+          // webm
+          // src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
+        }],
+        poster: this.data.thumbnail
+      }
+    },
     loggedIn () {
       return this.$auth.loggedIn
     },
@@ -76,8 +89,10 @@ export default {
     }
   },
   methods: {
-    jumpToVideo (id) {
-      this.$router.push('/video/' + id)
+    ping () {
+      this.$api.get('ping').then((response) => {
+        this.data = response.data
+      })
     }
   }
 }

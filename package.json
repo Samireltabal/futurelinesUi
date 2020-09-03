@@ -12,6 +12,8 @@
     "lint": "npm run lint:js"
   },
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^22.0.0",
+    "@ckeditor/ckeditor5-vue": "^1.0.2",
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/device": "^1.2.7",
@@ -22,6 +24,7 @@
     "nuxt": "^2.14.4",
     "nuxt-i18n": "^6.13.12",
     "vee-validate": "^3.3.9",
+    "vue-clip": "^1.0.0",
     "vue-mqtt": "^2.0.3",
     "vue-sweetalert2": "^3.0.8",
     "vue-video-player": "^5.0.2",

@@ -226,6 +226,26 @@ export default {
           ]
         },
         {
+          icon: 'mdi-account-group',
+          title: 'الميديا',
+          type: 'parent',
+          hasChild: true,
+          children: [
+            {
+              icon: 'mdi-plus',
+              title: 'فيديو جديد',
+              type: 'link',
+              to: '/admin/media/new'
+            },
+            {
+              icon: 'mdi-database',
+              title: 'كل الميديا',
+              type: 'link',
+              to: '/admin/media'
+            }
+          ]
+        },
+        {
           title: 'المواد',
           type: 'header',
           hasChild: false
