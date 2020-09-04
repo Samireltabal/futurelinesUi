@@ -24,9 +24,7 @@
               <v-card-title>
                 {{ data.title }}
               </v-card-title>
-              <v-card-subtitle>
-                {{ data.content }}
-              </v-card-subtitle>
+              <v-card-subtitle v-html="data.content" />
             </v-card>
           </v-col>
         </v-row>

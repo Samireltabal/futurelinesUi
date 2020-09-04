@@ -18,7 +18,7 @@
       </v-list>
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn block>
+          <v-btn block @click="logout">
             Logout
           </v-btn>
         </div>
@@ -182,15 +182,18 @@ export default {
       fixed: false,
       items: [
         {
+          icon: 'mdi-home',
+          visibleTo: 'all',
+          title: 'الموقع الرئيسي',
+          type: 'link',
+          to: '/'
+        },
+        {
           icon: 'mdi-apps',
           title: 'لوحة التحكم',
           to: '/admin/',
           type: 'link',
-          hasChild: false
-        },
-        {
-          title: 'User Controls',
-          type: 'header',
+          visibleTo: 'all',
           hasChild: false
         },
         {
@@ -198,11 +201,6 @@ export default {
           title: 'Accounts',
           to: '/admin/accounts',
           type: 'link',
-          hasChild: false
-        },
-        {
-          title: 'الحسابات',
-          type: 'header',
           hasChild: false
         },
         {
@@ -246,115 +244,26 @@ export default {
           ]
         },
         {
+          icon: 'mdi-school',
           title: 'المواد',
-          type: 'header',
-          hasChild: false
+          visibleTo: 'all',
+          type: 'link',
+          hasChild: false,
+          to: '/admin/projects/new'
         },
         {
-          icon: 'mdi-account-group',
-          title: 'المواد',
-          type: 'parent',
-          hasChild: true,
-          children: [
-            {
-              icon: 'mdi-plus',
-              title: 'اضافة مادة',
-              type: 'link',
-              to: '/admin/projects/new'
-            },
-            {
-              icon: 'mdi-database',
-              title: 'كل المواد',
-              type: 'link',
-              to: '/admin/projects/'
-            }
-          ]
+          icon: 'mdi-calendar',
+          title: 'الجداول',
+          visibleTo: 'all',
+          type: 'link',
+          to: '/calender/'
         },
         {
-          title: 'Shop',
-          type: 'header',
-          hasChild: false
-        },
-        {
-          icon: 'mdi-store',
-          title: 'Products',
-          to: '/products',
-          type: 'parent',
-          hasChild: true,
-          children: [
-            {
-              icon: 'mdi-store',
-              title: 'Products',
-              type: 'parent',
-              hasChild: true,
-              children: [
-                {
-                  icon: 'mdi-login',
-                  title: 'Login',
-                  type: 'link',
-                  to: '/login'
-                },
-                {
-                  icon: 'mdi-account-plus',
-                  title: 'Register',
-                  type: 'link',
-                  to: '/register'
-                }
-              ]
-            },
-            {
-              icon: 'mdi-tag-multiple',
-              title: 'Categories',
-              type: 'parent',
-              hasChild: true,
-              children: [
-                {
-                  icon: 'mdi-login',
-                  title: 'Login',
-                  type: 'link',
-                  to: '/login'
-                },
-                {
-                  icon: 'mdi-account-plus',
-                  title: 'Register',
-                  type: 'link',
-                  to: '/register'
-                }
-              ]
-            },
-            {
-              icon: 'mdi-tag-multiple',
-              title: 'Orders',
-              type: 'parent',
-              hasChild: true,
-              children: [
-                {
-                  icon: 'mdi-login',
-                  title: 'Login',
-                  type: 'link',
-                  to: '/login'
-                },
-                {
-                  icon: 'mdi-account-plus',
-                  title: 'Register',
-                  type: 'link',
-                  to: '/register'
-                }
-              ]
-            }
-          ]
-        },
-        {
-          icon: 'mdi-lock',
-          title: 'Verified',
+          icon: 'mdi-google-classroom',
+          title: 'الفصول الدراسية',
+          visibleTo: 'all',
           type: 'link',
           to: '/verified/'
-        },
-        {
-          icon: 'mdi-home',
-          title: 'Website Home',
-          type: 'link',
-          to: '/'
         }
       ],
       miniVariant: false,

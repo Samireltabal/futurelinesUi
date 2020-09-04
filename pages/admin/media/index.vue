@@ -6,13 +6,13 @@
       lg="12"
       md="12"
     >
-        <v-btn 
-            @click="$router.push('/admin/media/new')"
-            color="teal"
-            outlined
-        >
-            <v-icon>mdi-plus</v-icon> اضافه فيديو جديد
-        </v-btn>
+      <v-btn
+        color="teal"
+        outlined
+        @click="$router.push('/admin/media/new')"
+      >
+        <v-icon>mdi-plus</v-icon> اضافه فيديو جديد
+      </v-btn>
     </v-col>
     <v-col
       cols="12"
@@ -50,7 +50,7 @@
             </v-chip>
           </template>
           <template v-slot:item.thumbnail="{ item }">
-            <v-img :src="item.thumbnail" thumbnail max-height="200px" contain/>
+            <v-img :src="item.thumbnail" thumbnail max-height="200px" contain />
           </template>
           <template v-slot:item.options="{ item }">
             <v-btn
@@ -76,16 +76,16 @@
               <v-icon>{{ item.active ? 'mdi-pause' : 'mdi-play' }}</v-icon>
             </v-btn>
             <v-btn
-                  class="ma-0"
-                  outlined
-                  color="error"
-                  small
-                  icon
-                  fab
-                  @click="deleteVideo(item.id)"
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
+              class="ma-0"
+              outlined
+              color="error"
+              small
+              icon
+              fab
+              @click="deleteVideo(item.id)"
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
           </template>
         </v-data-table>
         <!-- end datatable -->

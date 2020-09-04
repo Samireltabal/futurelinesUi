@@ -23,31 +23,29 @@
               </v-card-title>
               <v-card-text>
                 <form @submit="uploadVideo">
-                    <v-text-field 
-                      v-model="vidObj.title"
-                      label="عنوان الفيديو"
-
-                    />
-                    <ckeditor 
-                      :editor="editor"
-                      v-model="vidObj.content"
-                      :config="editorConfig"
-                    />
-                    <v-file-input 
-                      label="اختيار الفيديو"
-                    />
-                    <v-switch
-                      v-model="vidObj.active"
-                      :label="`تفعيل الفيديو مباشراً : ${vidObj.active.toString()}`"
-                    ></v-switch>
-                    <v-btn @click="uploadVideo" block color="success">
-                        <v-icon>mdi-plus</v-icon> إضافة الفيديو
-                    </v-btn>
+                  <v-text-field
+                    v-model="vidObj.title"
+                    label="عنوان الفيديو"
+                  />
+                  <ckeditor
+                    v-model="vidObj.content"
+                    :editor="editor"
+                    :config="editorConfig"
+                    class="column"
+                  />
+                  <v-file-input
+                    v-model="file"
+                    label="اختيار الفيديو"
+                  />
+                  <v-switch
+                    v-model="vidObj.active"
+                    :label="`تفعيل الفيديو مباشراً : ${vidObj.active.toString()}`"
+                  />
+                  <v-btn block color="success" @click="uploadVideo">
+                    <v-icon>mdi-plus</v-icon> إضافة الفيديو
+                  </v-btn>
                 </form>
               </v-card-text>
-            <v-card-footer>
-                <pre>{{ vidObj }}</pre>
-            </v-card-footer>
             </v-card>
           </v-col>
         </v-row>
@@ -57,21 +55,21 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import CKEditor from '@ckeditor/ckeditor5-vue';
-Vue.use( CKEditor );
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Vue from 'vue'
+import CKEditor from '@ckeditor/ckeditor5-vue'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+Vue.use(CKEditor)
 
 export default {
-  name: 'newMedia',
+  name: 'NewMedia',
   layout: 'admin',
   data () {
     return {
       data: {},
       vidObj: {
-          title: '',
-          content: '',
-          active: false
+        title: '',
+        content: '',
+        active: false
       },
       editor: ClassicEditor,
       editorConfig: {
@@ -85,12 +83,29 @@ export default {
     }
   },
   methods: {
-    uploadVideo() {
+    uploadVideo () {
+      const formbody = new FormData()
+      formbody.append('video', this.file)
+      formbody.append('title', this.vidObj.title)
+      formbody.append('active', this.vidObj.active)
+      formbody.append('content', this.vidObj.content)
+      this.$api.post('/media/new', formbody, {
+        headers: {
+          'content-type': 'multipart/form-data'
+        }
+      }).then(() => {
         window.Swal.fire(
-            'Success',
-            'success',
-            'success'
+          'Success',
+          'success',
+          'success'
         )
+      }).catch(() => {
+        window.Swal.fire(
+          'فشل العمليه',
+          'برجاء مراجعة البيانات',
+          'error'
+        )
+      })
     }
   }
 }

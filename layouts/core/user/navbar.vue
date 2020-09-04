@@ -79,18 +79,18 @@ export default {
           to: '/contact'
         },
         {
-          icon: 'mdi-account',
-          title: 'Admin',
+          icon: 'mdi-cog',
+          title: 'لوحة التحكم',
           type: 'link',
           visibleTo: 'admin',
           to: '/admin/'
         },
         {
           icon: 'mdi-account',
-          title: 'Employee',
+          title: 'لوحة تحكم المدرسين',
           type: 'link',
-          visibleTo: 'admin',
-          to: '/employee/'
+          visibleTo: 'teacher',
+          to: '/teachers/'
         }
       ]
     }

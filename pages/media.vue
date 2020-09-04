@@ -19,7 +19,7 @@
             md="4"
             sm="12"
           >
-            <v-card>
+            <v-card :to="'/video/' + video.id">
               <v-img
                 :src="video.thumbnail"
                 height="200px"
@@ -28,9 +28,7 @@
               <v-card-title>
                 {{ video.title }}
               </v-card-title>
-              <v-card-subtitle>
-                {{ video.content }}
-              </v-card-subtitle>
+              <v-card-subtitle v-html="video.content" />
               <v-card-actions>
                 <v-btn text @click="jumpToVideo(video.id)">
                   مشاهدة <v-icon>mdi-play</v-icon>

@@ -1,5 +1,49 @@
 <template>
   <v-row align="center" justify="center">
+    <v-container>
+      <v-row dense>
+        <v-col cols="12" lg="3">
+          <v-card>
+            <v-card-subtitle>
+              <h2>عدد المسجلين</h2>
+            </v-card-subtitle>
+            <v-card-subtitle>
+              <h3>{{ stats.users }} حساب</h3>
+            </v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12" lg="3">
+          <v-card>
+            <v-card-subtitle>
+              <h2>عدد المديرين</h2>
+            </v-card-subtitle>
+            <v-card-subtitle>
+              <h3>{{ stats.admins }} حساب</h3>
+            </v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12" lg="3">
+          <v-card>
+            <v-card-subtitle>
+              <h2>عدد المدرسين</h2>
+            </v-card-subtitle>
+            <v-card-subtitle>
+              <h3>{{ stats.teachers }} مدرس</h3>
+            </v-card-subtitle>
+          </v-card>
+        </v-col>
+        <v-col cols="12" lg="3">
+          <v-card>
+            <v-card-subtitle>
+              <h2>عدد الطلبه</h2>
+            </v-card-subtitle>
+            <v-card-subtitle>
+              <h3><span class="green--text">{{ stats.registered }}</span> / <span class="red--text">{{ stats.students }}</span> طالب</h3>
+            </v-card-subtitle>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
     <v-col
       cols="12"
       sm="12"
@@ -155,6 +199,7 @@ export default {
       { text: 'مسجل منذ', value: 'registered' },
       { text: 'مفعل', value: 'verified' }
     ],
+    stats: {},
     desserts: [
       {
         name: 'Frozen Yogurt',
@@ -176,6 +221,9 @@ export default {
       this.$api.get('admin/users').then((response) => {
         this.accounts = response.data
         this.loading = false
+      })
+      this.$api.get('students/stats').then((response) => {
+        this.stats = response.data
       })
     },
     verifyMail (userId) {
