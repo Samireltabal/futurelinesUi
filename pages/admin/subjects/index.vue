@@ -34,7 +34,7 @@
                     </v-card-text>
 
                     <v-card-actions>
-                      <v-spacer></v-spacer>
+                      <v-spacer />
 
                       <v-btn
                         color="green darken-1"
