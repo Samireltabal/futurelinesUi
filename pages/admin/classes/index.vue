@@ -94,7 +94,7 @@ export default {
           value: 'id'
         },
         { text: 'إسم الفصل', value: 'room_name' },
-        { text: 'الطلبة', value: 'students.length' },
+        { text: 'الطلبة', value: 'students_length' },
         { text: 'المواد', value: 'classes' },
         { text: 'الخيارات', value: 'options' }
       ],

@@ -256,7 +256,7 @@ export default {
           title: 'الجداول',
           visibleTo: 'all',
           type: 'link',
-          to: '/calender/'
+          to: '/admin/calendar/'
         },
         {
           icon: 'mdi-google-classroom',
