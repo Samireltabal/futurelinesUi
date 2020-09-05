@@ -12,6 +12,15 @@
       <div class="text-center">
         <img src="@/assets/images/logo.png">
       </div>
+      <v-card width="680" class="mt-3">
+        <iframe
+          width="680"
+          height="415"
+          src="https://stream.futurelines.live:5443/WebRTCAppEE/play.html?name=stream1"
+          frameborder="0"
+          allowfullscreen
+        />
+      </v-card>
       <v-card v-if="!completed && loggedIn" width="680" class="mt-4">
         <v-card-title>
           <h2>

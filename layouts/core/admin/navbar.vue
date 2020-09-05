@@ -249,7 +249,7 @@ export default {
           visibleTo: 'all',
           type: 'link',
           hasChild: false,
-          to: '/admin/projects/new'
+          to: '/admin/subjects'
         },
         {
           icon: 'mdi-calendar',
@@ -263,7 +263,7 @@ export default {
           title: 'الفصول الدراسية',
           visibleTo: 'all',
           type: 'link',
-          to: '/verified/'
+          to: '/admin/classes'
         }
       ],
       miniVariant: false,
