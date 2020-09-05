@@ -55,10 +55,24 @@
         type="table-heading, table-thead, table-tbody, table-tfoot"
       >
         <!-- datatable -->
+        <v-row>
+          <v-col>
+            بحث
+            <v-spacer />
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="Search"
+              single-line
+              hide-details
+            /></v-text-field>
+          </v-col>
+        </v-row>
         <v-data-table
           :headers="headers"
           :items="accounts"
           :items-per-page="5"
+          :search="search"
           class="elevation-1"
         >
           <template v-slot:item.verified="{ item }">
@@ -178,6 +192,7 @@ export default {
     loading: true,
     transition: 'scale-transition',
     tile: false,
+    search: '',
     type: 'list-item-avatar-three-line',
     types: [],
     accounts: {},

@@ -12,9 +12,48 @@
                 خصائص
               </v-card-subtitle>
               <v-card-text>
-                <v-btn block color="success" class="black--white" @click="newSubject()">
+                <v-btn block color="success" class="black--white" @click.stop="dialog = true">
                   إضافة مادة جديده
                 </v-btn>
+                <v-dialog
+                  v-model="dialog"
+                  max-width="290"
+                >
+                  <v-card>
+                    <v-card-title>
+                      إضافة مادة جديده
+                    </v-card-title>
+
+                    <v-card-text>
+                      <form>
+                        <v-text-field
+                          v-model="subject_name"
+                          placeholder="إسم المادة"
+                        />
+                      </form>
+                    </v-card-text>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="resetAdd()"
+                      >
+                        إلغاء
+                      </v-btn>
+
+                      <v-btn
+                        color="green darken-1"
+                        text
+                        @click="newSubject()"
+                      >
+                        إضافه
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </v-card-text>
             </v-card>
           </v-col>
@@ -84,6 +123,17 @@
                 </v-list-item>
               </v-list>
             </v-menu>
+            <v-btn
+              class="ma-0"
+              outlined
+              color="error"
+              small
+              icon
+              fab
+              @click="deleteSubject(item.id)"
+            >
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
           </template>
         </v-data-table>
       </v-skeleton-loader>
@@ -103,9 +153,11 @@ export default {
   data () {
     return {
       loading: true,
+      dialog: false,
       subjects: {},
       title: 'Page Title',
       teachers: {},
+      subject_name: '',
       headers: [
         {
           text: 'ID',
@@ -133,7 +185,17 @@ export default {
       })
     },
     newSubject () {
-
+      this.$api.post('subjects/create', {
+        subject_name: this.subject_name
+      }).then(() => {
+        this.$fetch()
+        this.subject_name = ''
+        this.dialog = false
+      })
+    },
+    resetAdd () {
+      this.subject_name = ''
+      this.dialog = false
     },
     attchSubtoTeacher (teacherId, SubjectId) {
       this.$api.post('admin/teacher/subject/attach', {
@@ -153,6 +215,35 @@ export default {
           error.response.data.message,
           'error'
         )
+      })
+    },
+    deleteSubject (subjectId) {
+      window.Swal.fire({
+        title: 'هل انت متأكد',
+        text: 'لا يمكن إسترجاع البيانات بعد حذفها',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'إحذف',
+        cancelButtonText: 'إلغاء'
+      }).then((result) => {
+        if (result.value) {
+          this.$api.get('/subjects/delete/' + subjectId).then((response) => {
+            window.Swal.fire(
+              'نجاح العمليه',
+              'تم الحذف بنجاح',
+              'success'
+            )
+            this.$fetch()
+          }).catch(() => {
+            window.Swal.fire(
+              'فشل العمليه',
+              'خطأ اثناء الحذف',
+              'error'
+            )
+          })
+        }
       })
     },
     detachSubfromTeacher (teacherId, SubjectId) {
