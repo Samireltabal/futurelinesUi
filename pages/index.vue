@@ -12,15 +12,6 @@
       <div class="text-center">
         <img src="@/assets/images/logo.png">
       </div>
-      <v-card width="680" class="mt-3">
-        <iframe
-          width="680"
-          height="415"
-          src="https://stream.futurelines.live:5443/WebRTCAppEE/play.html?name=stream1"
-          frameborder="0"
-          allowfullscreen
-        />
-      </v-card>
       <v-card v-if="!completed && loggedIn" width="680" class="mt-4">
         <v-card-title>
           <h2>
@@ -54,6 +45,9 @@
             سيتم إعلامك عن طريق البريد الإلكتروني عند وجود تحديثات في الموقع
           </p>
         </v-card-text>
+        <v-card-action>
+          <v-btn block large @click="$router.push('/timetable')" color="purple" class="white--text">جدول الدراسة</v-btn>
+        </v-card-action>
       </v-card>
       <v-card v-if="!loggedIn" width="680" class="mt-4">
         <v-card-title>
@@ -129,13 +123,6 @@
 
 export default {
   name: 'Home',
-  asyncData ({ $api }) {
-    return $api.$get('ping').then((response) => {
-      return { data: response }
-    }).catch(() => {
-      return { data: 'network error' }
-    })
-  },
   data () {
     return {
       data: {}

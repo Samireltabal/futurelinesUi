@@ -1,5 +1,5 @@
 <template>
-  <v-btn :disabled="student_paid" color="success" @click="goToStream()">
+  <v-btn :disabled="student_paid || notReady" color="success" @click="goToStream()">
     إبدأ الدرس
   </v-btn>
 </template>
@@ -15,11 +15,15 @@ export default {
   async fetch () {
     await this.$api.get('/stream/getStream/' + this.singleClass.subject.subject_id + '/' + this.singleClass.grade.id + '/' + this.singleClass.subject.teacher_id).then((response) => {
       this.stream = response.data
+      this.notReady = false
+    }).catch(() => {
+      this.notReady = true
     })
   },
   data () {
     return {
-      stream: {}
+      stream: {},
+      notReady: true
     }
   },
   computed: {

@@ -1,20 +1,23 @@
 <template>
   <v-layout>
-    <h1>{{ $route.params.id }}</h1>
-    <iframe
-      width="100%"
-      height="50vh"
-      :src="url"
-      frameborder="0"
-      allowfullscreen
-    />
+    <v-col cols="12" lg="10" sm="12">
+      <v-card>
+        <v-card-title>
+          فصل {{ $route.params.id }}
+        </v-card-title>
+        <v-card-text>
+          <v-btn large block color="success" @click="gotostream">
+            إبدأ البث
+          </v-btn>
+        </v-card-text>
+      </v-card>
+    </v-col>
   </v-layout>
 </template>
 <script>
 export default {
   data () {
     return {
-      stream_id: '931358145727022020468299'
     }
   },
   computed: {
@@ -22,7 +25,12 @@ export default {
       return this.$auth.getToken('local')
     },
     url () {
-      return 'https://api.futurelines.net/api/stream/show/' + this.stream_id + '/' + this.token
+      return 'https://api.futurelines.net/api/stream/publish/' + this.$route.params.id + '/' + this.token
+    }
+  },
+  methods: {
+    gotostream () {
+      window.open(this.url, '_blank')
     }
   }
 }
