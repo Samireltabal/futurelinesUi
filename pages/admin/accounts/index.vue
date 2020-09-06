@@ -71,7 +71,8 @@
         <v-data-table
           :headers="headers"
           :items="accounts"
-          :items-per-page="5"
+          :items-per-page="30"
+          dense
           :search="search"
           class="elevation-1"
         >
@@ -121,6 +122,11 @@
           <template v-slot:item.phone="{ item }">
             <span v-for="(value, key) in item.student" :key="key">
               <small v-if="value != null">{{ value.phone_number }}</small><br>
+            </span>
+          </template>
+          <template v-slot:item.paid_at="{ item }">
+            <span v-for="(value, key) in item.student" :key="key">
+              <small v-if="value != null">{{ value.paid_at }}</small><br>
             </span>
           </template>
           <template v-slot:item.options="{ item }">
@@ -175,6 +181,18 @@
                 </v-list-item>
               </v-list>
             </v-menu>
+            <v-btn
+              v-if="item.student.length"
+              class="ma-0"
+              outlined
+              :color="item.student[0].paid ? 'teal' : 'error'"
+              small
+              icon
+              fab
+              @click="markAsPaid(item.id)"
+            >
+              <v-icon>mdi-currency-usd</v-icon>
+            </v-btn>
           </template>
         </v-data-table>
         <!-- end datatable -->
@@ -211,6 +229,7 @@ export default {
       { text: 'الجنسية', value: 'nationality' },
       { text: 'رقم التليفون', value: 'phone' },
       { text: 'Options', value: 'options' },
+      { text: 'تاريخ الدفع', value: 'paid_at' },
       { text: 'مسجل منذ', value: 'registered' },
       { text: 'مفعل', value: 'verified' }
     ],
@@ -244,6 +263,12 @@ export default {
     verifyMail (userId) {
       this.$api.post('/admin/user/verify', { userId }).then(() => {
         this.$toast.success('تم تفعيل البريد الإلكتروني')
+        this.listUser()
+      })
+    },
+    markAsPaid (userId) {
+      this.$api.get('/students/markaspaid/' + userId).then((response) => {
+        this.$toast.success(response.data.message)
         this.listUser()
       })
     },

@@ -33,6 +33,14 @@ export default {
           hasChild: false
         },
         {
+          icon: 'mdi-calendar',
+          title: 'الجدول',
+          to: '/timetable',
+          visibleTo: 'all',
+          type: 'link',
+          hasChild: false
+        },
+        {
           icon: 'mdi-account-plus',
           title: 'التسجيل',
           to: '/register',

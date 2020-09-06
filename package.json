@@ -28,6 +28,7 @@
     "vue-mqtt": "^2.0.3",
     "vue-sweetalert2": "^3.0.8",
     "vue-video-player": "^5.0.2",
+    "vue-webrtc": "^1.2.2",
     "vuex-persistedstate": "^3.1.0"
   },
   "devDependencies": {

@@ -24,7 +24,7 @@
             v-model="start_at"
             landscape
             :allowed-hours="[13,14,15,16,17]"
-            :allowed-minutes="[15,30,45,0]"
+            :allowed-minutes="[5,10,15,20,25,30,35,40,45,50,55,0]"
           />
           <v-select
             v-model="weekday_id"
