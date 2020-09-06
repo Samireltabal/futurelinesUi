@@ -23,12 +23,6 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
-    script: [
-      { src: '@/js/fetch.js' },
-      { src: '@/js/fetch.stream.js' },
-      { src: '@/js/promise.min.js' },
-      { src: '@/js/webrtc_adaptor' }
-    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto:wght@400;500;700&display=swap' }

@@ -19,13 +19,17 @@
               <v-list-group>
                 <v-list-item v-for="singleClass in data" :key="singleClass.id">
                   <v-list-item-title>
-                    المادة : {{ singleClass.subject.subject_name }} ( {{ singleClass.grade.grade_name }} ) - الساعه : {{ singleClass.start_at }} - المدة : {{ singleClass.duration }} دقيقه
+                    <h5> المادة : {{ singleClass.subject.subject_name }} ( {{ singleClass.grade.grade_name }} ) </h5>
+                    <h6> الساعه : {{ singleClass.start_at }} - المدة : {{ singleClass.duration }} دقيقه </h6>
                   </v-list-item-title>
+                  <!-- <v-list-item-subtitle>
+                     
+                  </v-list-item-subtitle> -->
                   <v-list-item-action v-if="$auth.user.role === 'student'">
                     <StreamButton :single-class="singleClass" />
                   </v-list-item-action>
                   <v-list-item-action v-if="$auth.user.role === 'teacher'">
-                    <v-btn icon @click="startStream(singleClass)">
+                    <v-btn icon @click="startStream(data.stream_id)">
                       إبدأ الحصة
                       <v-icon color="green darken-1">
                         mdi-play
