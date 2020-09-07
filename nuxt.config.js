@@ -74,7 +74,7 @@ export default {
     '@nuxtjs/pwa'
   ],
   auth: {
-    plugins: [{ src: '~/plugins/api', ssr: true }, { src: '~/plugins/github', ssr: false }],
+    plugins: [{ src: '~/plugins/api', ssr: true }],
     watchLoggedIn: false,
     strategies: {
       local: {
@@ -146,5 +146,6 @@ export default {
   ** See https://nuxtjs.org/api/configuration-build/
   */
   build: {
+    analyze: true
   }
 }

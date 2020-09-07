@@ -45,9 +45,11 @@
             سيتم إعلامك عن طريق البريد الإلكتروني عند وجود تحديثات في الموقع
           </p>
         </v-card-text>
-        <v-card-action>
-          <v-btn block large @click="$router.push('/timetable')" color="purple" class="white--text">جدول الدراسة</v-btn>
-        </v-card-action>
+        <v-card-actions>
+          <v-btn block large color="purple" class="white--text" @click="$router.push('/timetable')">
+            جدول الدراسة
+          </v-btn>
+        </v-card-actions>
       </v-card>
       <v-card v-if="!loggedIn" width="680" class="mt-4">
         <v-card-title>

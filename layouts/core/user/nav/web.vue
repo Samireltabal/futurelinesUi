@@ -151,19 +151,7 @@
             flat
             width="200px"
           >
-            <v-subheader>Account </v-subheader>
-            <v-list-item
-              @click="$router.push('/notifications/')"
-            >
-              <v-list-item-icon>
-                <v-icon>mdi-account</v-icon>
-              </v-list-item-icon>
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ $t('Account') }}
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
+            <v-subheader>{{ $auth.user.name }} </v-subheader>
             <v-list-item
               @click="logout"
             >

@@ -58,7 +58,6 @@
 </template>
 <script>
 export default {
-  name: 'addSubject',
   props: {
     classData: {
       required: true,

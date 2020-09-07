@@ -92,13 +92,6 @@ export default {
           type: 'link',
           visibleTo: 'admin',
           to: '/admin/'
-        },
-        {
-          icon: 'mdi-account',
-          title: 'لوحة تحكم المدرسين',
-          type: 'link',
-          visibleTo: 'teacher',
-          to: '/teachers/'
         }
       ]
     }
