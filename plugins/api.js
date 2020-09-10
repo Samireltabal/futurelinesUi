@@ -1,7 +1,7 @@
 export default function ({ store, $axios, $auth, redirect }, inject) {
   const api = $axios.create({
     baseURL: process.env.API_URL,
-    timeout: 5000,
+    timeout: 60000,
     headers: {
       common: {
         Accept: 'Application/json, */*',
