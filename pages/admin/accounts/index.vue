@@ -319,6 +319,7 @@ export default {
   },
   watch: {
     itemsPerPage () {
+      this.page = 1
       this.listUser()
     },
     page () {
@@ -328,6 +329,7 @@ export default {
       this.listUser()
     },
     roleSelected () {
+      this.page = 1
       this.listUser()
     }
   },
