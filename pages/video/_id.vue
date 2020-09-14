@@ -24,7 +24,7 @@
               <v-card-title>
                 {{ data.title }}
               </v-card-title>
-              <v-card-subtitle v-html="data.content" />
+              <v-card-subtitle v-html="data.description" />
             </v-card>
           </v-col>
         </v-row>
@@ -43,7 +43,7 @@ export default {
     videoPlayer
   },
   asyncData ({ $api, params }) {
-    return $api.$get('media/show/' + params.id).then((response) => {
+    return $api.$get('v2/vod/show/' + params.id).then((response) => {
       return { data: response }
     }).catch(() => {
       return { data: 'network error' }
@@ -67,7 +67,7 @@ export default {
         sources: [{
           type: 'video/mp4',
           // mp4
-          src: this.data.url
+          src: this.data.video
           // webm
           // src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
         }],

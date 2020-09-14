@@ -20,15 +20,17 @@
             sm="12"
           >
             <v-card :to="'/video/' + video.id">
-              <v-img
-                :src="video.thumbnail"
+              <img
+                :id="video.id"
+                :src="video.thumb"
                 height="200px"
                 contain
-              />
+                @error="handle(video.id)"
+              >
               <v-card-title>
                 {{ video.title }}
               </v-card-title>
-              <v-card-subtitle v-html="video.content" />
+              <v-card-subtitle v-html="video.description" />
               <v-card-actions>
                 <v-btn text @click="jumpToVideo(video.id)">
                   مشاهدة <v-icon>mdi-play</v-icon>
@@ -47,7 +49,7 @@
 export default {
   name: 'Home',
   asyncData ({ $api }) {
-    return $api.$get('media/list').then((response) => {
+    return $api.$get('v2/vod/list').then((response) => {
       return { data: response }
     }).catch(() => {
       return { data: 'network error' }
@@ -55,27 +57,19 @@ export default {
   },
   data () {
     return {
-      data: {}
+      data: {},
+      ifImageBroken: false,
+      brokenText: ''
     }
   },
   computed: {
-    api () {
-      return process.env.API_BASE
-    },
-    loggedIn () {
-      return this.$auth.loggedIn
-    },
-    completed () {
-      if (this.$auth.loggedIn && this.$auth.user.student.length) {
-        return true
-      } else {
-        return false
-      }
-    }
   },
   methods: {
     jumpToVideo (id) {
       this.$router.push('/video/' + id)
+    },
+    handle (id) {
+      document.getElementById(id).src = require('../assets/images/logo.png')
     }
   }
 }
