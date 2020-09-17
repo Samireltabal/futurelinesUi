@@ -15,7 +15,7 @@
           <template v-slot:item.classes="{ item }">
             <span v-for="singleClass in item.classes" :key="singleClass.id" style="display:block;" class="py-1">
               <span>
-                {{ singleClass.subject.subject_name }} - {{ singleClass.teacher.name }} <v-btn x-small fab icon color="error" @click="detachSubfromTeacher(singleClass.id)"><v-icon>mdi-delete</v-icon></v-btn></span>
+                {{ singleClass.subject.subject_name }} - {{ singleClass.teacher ? singleClass.teacher.name : 'Deleted Teacher' }} <v-btn x-small fab icon color="error" @click="detachSubfromTeacher(singleClass.id)"><v-icon>mdi-delete</v-icon></v-btn></span>
             </span>
           </template>
           <template v-slot:item.options="{ item }">

@@ -12,6 +12,9 @@
           <v-btn large block color="error" class="mt-5" @click="endStream">
             اغلق الفصل
           </v-btn>
+          <v-btn small block color="warning" class="black--text mt-5" @click="alternateStream">
+            البث البديل \ في حالة فشل الإتصال بالطرق المعتادة
+          </v-btn>
         </v-card-text>
       </v-card>
     </v-col>
@@ -104,6 +107,23 @@ export default {
       }).then((result) => {
         if (result.value) {
           this.$mqtt.publish('/stream/' + this.$route.params.id, 'END_STREAM')
+        }
+      })
+    },
+    alternateStream () {
+      window.Swal.fire({
+        title: 'الطريقة البديله للبث',
+        text: 'طريقة احتياطيه للساده المدرسين الغير قادرين علي البث في الصفحة العادية - متابعة الشات تكون عن طريق الصفحة الحاليه',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'الذهاب لصفحة البث المؤقت',
+        cancelButtonText: 'إلغاء'
+      }).then((result) => {
+        if (result.value) {
+          const alternate = 'https://stream.futurelines.live:5443/WebRTCAppEE/index.html?name=' + this.$route.params.id
+          window.open(alternate, '_blank')
         }
       })
     },
