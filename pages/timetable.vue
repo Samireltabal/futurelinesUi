@@ -26,7 +26,7 @@
                     <StreamButton :single-class="singleClass" />
                   </v-list-item-action>
                   <v-list-item-action v-if="$auth.user.role === 'teacher'">
-                    <v-btn icon @click="startStream(singleClass.stream_id)">
+                    <v-btn icon @click="initStream(singleClass)">
                       إبدأ الحصة
                       <v-icon color="green darken-1">
                         mdi-play
@@ -61,9 +61,33 @@ export default {
       timetable: {}
     }
   },
+  computed: {
+    token () {
+      return this.$auth.getToken('local')
+    }
+  },
   methods: {
     startStream (streamId) {
       this.$router.push('/class/' + streamId + '/teacher')
+    },
+    initStream (classdata) {
+      const data = {
+        day_of_week: classdata.weekday_id,
+        teacher_id: classdata.subject.teacher_id,
+        subject_id: classdata.subject.subject_id,
+        grade_id: classdata.grade.id,
+        duration: classdata.duration,
+        stream_id: classdata.stream_id
+      }
+      this.$api.post('v2/class/start', data).then((response) => {
+        window.open('http://localhost:8080/teacher.html?classId=' + response.data.room_id + '&token=' + this.token)
+      }).catch(() => {
+        window.swal.fire(
+          'فشل في فتح الغرفه',
+          'حدث خطأ اثناء فتح الغرفه',
+          'error'
+        )
+      })
     }
   }
 }
