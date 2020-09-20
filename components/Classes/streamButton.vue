@@ -28,11 +28,14 @@ export default {
       } else {
         return false
       }
+    },
+    token () {
+      return this.$auth.getToken('local')
     }
   },
   methods: {
     goToStream () {
-      this.$router.push('/class/' + this.singleClass.stream_id + '/student')
+      window.open('https://stream.futurelines.live:5443/WebRTCAppEE/student.html?classId=' + this.singleClass.stream_id + '&token=' + this.token)
     }
   }
 }

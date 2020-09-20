@@ -80,7 +80,7 @@ export default {
         stream_id: classdata.stream_id
       }
       this.$api.post('v2/class/start', data).then((response) => {
-        window.open('http://localhost:8080/teacher.html?classId=' + response.data.room_id + '&token=' + this.token)
+        window.open('https://stream.futurelines.live:5443/WebRTCAppEE/teacher.html?classId=' + response.data.room_id + '&token=' + this.token)
       }).catch(() => {
         window.swal.fire(
           'فشل في فتح الغرفه',
